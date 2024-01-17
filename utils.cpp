@@ -49,7 +49,8 @@ bool decrypt_TPL_AES_CBC_IV(std::vector<unsigned char> &frame,
                             int *num_not_encrypted_at_end) {
   std::vector<unsigned char> buffer;
   buffer.insert(buffer.end(), pos, frame.end());
-  size_t num_bytes_to_decrypt = frame.end()-pos;
+  // size_t num_bytes_to_decrypt = frame.end()-pos;
+  size_t num_bytes_to_decrypt = 144;
   uint8_t tpl_num_encr_blocks = 3; //t->tpl_num_encr_blocks
 
   if (tpl_num_encr_blocks) {
@@ -68,9 +69,9 @@ bool decrypt_TPL_AES_CBC_IV(std::vector<unsigned char> &frame,
   }
 
   // The content should be a multiple of 16 since we are using AES CBC mode.
-  // if (num_bytes_to_decrypt % 16 != 0) {
-  //   assert (num_bytes_to_decrypt % 16 == 0);
-  // }
+  if (num_bytes_to_decrypt % 16 != 0) {
+    assert (num_bytes_to_decrypt % 16 == 0);
+  }
 
   unsigned char buffer_data[num_bytes_to_decrypt];
   memcpy(buffer_data, safeButUnsafeVectorPtr(buffer), num_bytes_to_decrypt);
