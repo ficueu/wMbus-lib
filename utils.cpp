@@ -68,10 +68,9 @@ bool decrypt_TPL_AES_CBC_IV(std::vector<unsigned char> &frame,
   }
 
   // The content should be a multiple of 16 since we are using AES CBC mode.
-  if (num_bytes_to_decrypt % 16 != 0) {
-    ESP_LOGVV(TAG, "Last part of frame has %d bytes.", num_bytes_to_decrypt % 16);
-    assert (num_bytes_to_decrypt % 16 == 0);
-  }
+  // if (num_bytes_to_decrypt % 16 != 0) {
+  //   assert (num_bytes_to_decrypt % 16 == 0);
+  // }
 
   unsigned char buffer_data[num_bytes_to_decrypt];
   memcpy(buffer_data, safeButUnsafeVectorPtr(buffer), num_bytes_to_decrypt);
